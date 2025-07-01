@@ -1,0 +1,235 @@
+---
+const contactMethods = [
+  {
+    label: "Email",
+    value: "faiyaz.samin@gmail.com",
+    href: "mailto:faiyaz.samin@gmail.com?subject=Job Opportunity&body=Hi Sheikh Faiyaz,%0D%0A%0D%0AI'm interested in discussing a potential opportunity with you.",
+    color: "from-blue-500 to-cyan-500",
+    icon: "mail",
+    description: "Best for detailed discussions"
+  },
+  {
+    label: "Phone",
+    value: "+880 1681791973",
+    href: "tel:+8801681791973",
+    color: "from-green-500 to-emerald-500",
+    icon: "phone",
+    description: "Available 9 AM - 6 PM GMT+6"
+  },
+  {
+    label: "LinkedIn",
+    value: "linkedin.com/in/faiyazsamin",
+    href: "https://linkedin.com/in/faiyazsamin",
+    color: "from-blue-600 to-blue-500",
+    icon: "linkedin",
+    description: "Professional networking"
+  },
+  {
+    label: "Schedule Call",
+    value: "Book a 30-min consultation",
+    href: "https://calendly.com/faiyaz-samin",
+    color: "from-purple-500 to-pink-500",
+    icon: "calendar",
+    description: "Free consultation call"
+  }
+];
+---
+
+<section id="contact" class="py-20 bg-black">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+        Get In <span class="text-cyan-400">Touch</span>
+      </h2>
+      <div class="w-24 h-1 bg-gradient-to-r from-cyan-500 to-green-500 mx-auto mb-6"></div>
+      <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+        Ready to discuss your security needs or explore opportunities? Let's connect!
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12">
+      <!-- Contact Information -->
+      <div class="space-y-8">
+        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-8">
+          <h3 class="text-2xl font-semibold text-white mb-6">Contact Information</h3>
+          
+          <div class="space-y-4">
+            {contactMethods.map((method) => (
+              <a
+                href={method.href}
+                target={method.href.startsWith('http') ? '_blank' : undefined}
+                rel={method.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                class="flex items-center gap-4 p-4 rounded-lg border border-gray-800 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105 group"
+              >
+                <div class={`w-12 h-12 rounded-lg bg-gradient-to-br ${method.color} flex items-center justify-center`}>
+                  {method.icon === 'mail' && (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                  )}
+                  {method.icon === 'phone' && (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                  )}
+                  {method.icon === 'linkedin' && (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                      <rect x="2" y="9" width="4" height="12"></rect>
+                      <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                  )}
+                  {method.icon === 'calendar' && (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                      <line x1="16" y1="2" x2="16" y2="6"></line>
+                      <line x1="8" y1="2" x2="8" y2="6"></line>
+                      <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                  )}
+                </div>
+                <div class="flex-1">
+                  <p class="text-gray-400 text-sm">{method.label}</p>
+                  <p class="text-white font-medium group-hover:text-cyan-400 transition-colors duration-300">
+                    {method.value}
+                  </p>
+                  <p class="text-gray-500 text-xs">{method.description}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <!-- Response Time -->
+          <div class="mt-8 p-4 bg-green-500/10 rounded-lg border border-green-500/30">
+            <div class="flex items-center gap-2 mb-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12,6 12,12 16,14"></polyline>
+              </svg>
+              <span class="text-green-400 font-medium">Quick Response</span>
+            </div>
+            <p class="text-gray-300 text-sm">
+              I typically respond to emails within 2-4 hours during business days (GMT+6).
+              For urgent matters, please call or schedule a direct meeting.
+            </p>
+          </div>
+
+          <div class="mt-4 p-4 bg-cyan-500/10 rounded-lg border border-cyan-500/30">
+            <div class="flex items-center gap-2 mb-2">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span class="text-cyan-400 font-medium">Location & Availability</span>
+            </div>
+            <p class="text-gray-300 text-sm">
+              Based in Dhaka, Bangladesh (GMT+6). Open to remote work globally and occasional travel for on-site projects.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Contact Form -->
+      <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-8">
+        <h3 class="text-2xl font-semibold text-white mb-6">Quick Message</h3>
+        
+        <form class="space-y-6" action="mailto:faiyaz.samin@gmail.com" method="post" enctype="text/plain">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label for="name" class="block text-gray-300 mb-2">Name *</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-cyan-500 focus:outline-none transition-colors duration-300"
+                placeholder="Your name"
+              />
+            </div>
+
+            <div>
+              <label for="company" class="block text-gray-300 mb-2">Company</label>
+              <input
+                type="text"
+                id="company"
+                name="company"
+                class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-cyan-500 focus:outline-none transition-colors duration-300"
+                placeholder="Company name"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="email" class="block text-gray-300 mb-2">Email *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-cyan-500 focus:outline-none transition-colors duration-300"
+              placeholder="your.email@example.com"
+            />
+          </div>
+
+          <div>
+            <label for="subject" class="block text-gray-300 mb-2">Subject *</label>
+            <select
+              id="subject"
+              name="subject"
+              required
+              class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-cyan-500 focus:outline-none transition-colors duration-300"
+            >
+              <option value="">Select a topic</option>
+              <option value="Job Opportunity">Job Opportunity</option>
+              <option value="Freelance Project">Freelance Project</option>
+              <option value="Security Consultation">Security Consultation</option>
+              <option value="Partnership">Partnership</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="message" class="block text-gray-300 mb-2">Message *</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="4"
+              required
+              class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:border-cyan-500 focus:outline-none transition-colors duration-300 resize-none"
+              placeholder="Tell me about your project or opportunity..."
+            ></textarea>
+          </div>
+
+          <div class="flex gap-3">
+            <button
+              type="submit"
+              class="flex-1 bg-gradient-to-r from-cyan-500 to-green-500 hover:from-cyan-400 hover:to-green-400 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+              </svg>
+              Send Message
+            </button>
+            
+            <a
+              href="https://calendly.com/faiyaz-samin"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bg-purple-600 hover:bg-purple-500 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              Schedule
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,96 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Offensive QA Specialist, Penetration Tester & Automation Builder with 5+ years experience in cybersecurity, automation, and threat analysis. Based in Dhaka, Bangladesh." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="Security Engineer, Penetration Testing, QA Automation, Cybersecurity, Red Team, Offensive Security" />
+    <meta name="author" content="Sheikh Faiyaz Ahmed" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+  </head>
+  <body class="bg-black text-white overflow-x-hidden">
+    <slot />
+    
+    <script>
+      // Smooth scrolling for navigation links
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const href = (e.target as HTMLAnchorElement).getAttribute('href');
+            const target = href ? document.querySelector(href) : null;
+            if (target) {
+              target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+              });
+            }
+          });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuButton && mobileMenu) {
+          mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+          });
+        }
+
+        // Floating hire button
+        const floatingButton = document.getElementById('floating-hire-button');
+        const hireModal = document.getElementById('hire-modal');
+        const closeModal = document.getElementById('close-modal');
+        
+        if (floatingButton && hireModal && closeModal) {
+          // Show/hide floating button on scroll
+          window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+              floatingButton.classList.remove('hidden');
+            } else {
+              floatingButton.classList.add('hidden');
+            }
+          });
+
+          // Show modal
+          floatingButton.addEventListener('click', function() {
+            hireModal.classList.remove('hidden');
+          });
+
+          // Close modal
+          closeModal.addEventListener('click', function() {
+            hireModal.classList.add('hidden');
+          });
+
+          // Close modal on backdrop click
+          hireModal.addEventListener('click', function(e) {
+            if (e.target === hireModal) {
+              hireModal.classList.add('hidden');
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,91 @@
+---
+const achievements = [
+  {
+    title: "Champion, Zelf Hackathon",
+    category: "Scraping Category",
+    color: "from-yellow-500 to-orange-500",
+    year: "2025",
+    description: "First place in data scraping and automation challenge"
+  },
+  {
+    title: "1st Runner-up – Financial Cyber Drill 2021",
+    category: "Team Heimdall",
+    color: "from-blue-500 to-cyan-500",
+    year: "2021",
+    description: "Second place in national financial sector cybersecurity competition"
+  },
+  {
+    title: "2nd Runner-up – National Cyber Drill",
+    category: "Cybersecurity Competition",
+    color: "from-purple-500 to-pink-500",
+    year: "2020",
+    description: "Third place in national cybersecurity competition"
+  },
+  {
+    title: "STAR Award Recipient",
+    category: "bKash Limited",
+    color: "from-green-500 to-emerald-500",
+    year: "2021, 2023",
+    description: "Recognized for innovation in QA and security processes"
+  }
+];
+---
+
+<section id="achievements" class="py-20 bg-gray-900">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+        <span class="text-cyan-400">Achievements</span> & Recognition
+      </h2>
+      <div class="w-24 h-1 bg-gradient-to-r from-cyan-500 to-green-500 mx-auto mb-6"></div>
+      <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+        Recognition for excellence in cybersecurity competitions and professional contributions
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      {achievements.map((achievement) => (
+        <div class="group">
+          <div class="bg-black/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/10 h-full">
+            <div class="flex items-start gap-4">
+              <div class={`w-12 h-12 rounded-lg bg-gradient-to-br ${achievement.color} flex items-center justify-center flex-shrink-0`}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                  <circle cx="12" cy="8" r="7"></circle>
+                  <polyline points="8.21,13.89 7,23 12,20 17,23 15.79,13.88"></polyline>
+                </svg>
+              </div>
+              
+              <div class="flex-1">
+                <div class="flex items-center gap-2 mb-2">
+                  <h3 class="text-lg font-semibold text-white">{achievement.title}</h3>
+                  <span class="bg-cyan-500/20 text-cyan-400 px-2 py-1 rounded-full text-xs font-medium">
+                    {achievement.year}
+                  </span>
+                </div>
+                
+                <p class="text-cyan-400 font-medium mb-3">{achievement.category}</p>
+                <p class="text-gray-400 text-sm leading-relaxed">{achievement.description}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-16 text-center">
+      <div class="bg-gradient-to-r from-cyan-500/20 to-green-500/20 rounded-2xl p-8 backdrop-blur-sm border border-cyan-500/30">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mx-auto mb-4">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        <h3 class="text-2xl font-semibold text-white mb-2">Ready for New Challenges</h3>
+        <p class="text-gray-300 max-w-2xl mx-auto">
+          Always eager to take on new security challenges and contribute to innovative projects. 
+          Let's build something secure together!
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
