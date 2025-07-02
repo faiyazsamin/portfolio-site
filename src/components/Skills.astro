@@ -13,6 +13,12 @@ const skillCategories = [
     icon: "bug"
   },
   {
+    title: "AI Tools",
+    skills: ["Prompt Engineering", "MCP", "AI Security Testing", "Data Scraping", "Anomaly Detection", "Automation Workflows"],
+    color: "from-purple-500 to-indigo-500",
+    icon: "brain"
+  },
+  {
     title: "Cloud Technologies",
     skills: ["AWS EC2", "S3", "Lambda", "IAM", "CloudWatch", "SQS"],
     color: "from-green-500 to-emerald-500",
@@ -71,6 +77,12 @@ const skillCategories = [
                     <path d="M14 6h4"></path>
                     <path d="M14 10h4"></path>
                     <path d="M14 14h4"></path>
+                  </svg>
+                )}
+                {category.icon === 'brain' && (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44A2.5 2.5 0 0 1 4.5 17v-2.5a2.5 2.5 0 0 1 0-5V7a2.5 2.5 0 0 1 5-5Z"></path>
+                    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44A2.5 2.5 0 0 0 19.5 17v-2.5a2.5 2.5 0 0 0 0-5V7a2.5 2.5 0 0 0-5-5Z"></path>
                   </svg>
                 )}
                 {category.icon === 'cloud' && (

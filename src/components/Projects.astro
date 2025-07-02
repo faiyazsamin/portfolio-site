@@ -13,6 +13,18 @@ const projects = [
     ]
   },
   {
+    title: "AI-Powered Security Scanner",
+    description: "Developed an intelligent security scanning tool that uses machine learning to identify potential vulnerabilities and prioritize security risks",
+    tech: ["Python", "TensorFlow", "REST APIs", "Docker"],
+    color: "from-purple-500 to-indigo-500",
+    features: [
+      "ML-based vulnerability detection",
+      "Automated risk prioritization",
+      "Custom security rule creation",
+      "Integration with CI/CD pipelines"
+    ]
+  },
+  {
     title: "Payment Gateway Security Exploit Simulation",
     description: "Red team simulation environment for testing payment gateway vulnerabilities and security controls",
     tech: ["Python", "Burp Suite", "OWASP", "Security Testing"],
@@ -51,7 +63,7 @@ const projects = [
       </p>
     </div>
 
-    <div class="grid lg:grid-cols-3 gap-8">
+    <div class="grid lg:grid-cols-2 gap-8">
       {projects.map((project, index) => (
         <div class="group">
           <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/10 h-full flex flex-col">
@@ -65,10 +77,16 @@ const projects = [
                 )}
                 {index === 1 && (
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44A2.5 2.5 0 0 1 4.5 17v-2.5a2.5 2.5 0 0 1 0-5V7a2.5 2.5 0 0 1 5-5Z"></path>
+                    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44A2.5 2.5 0 0 0 19.5 17v-2.5a2.5 2.5 0 0 0 0-5V7a2.5 2.5 0 0 0-5-5Z"></path>
                   </svg>
                 )}
                 {index === 2 && (
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                )}
+                {index === 3 && (
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
                     <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
                   </svg>
@@ -101,7 +119,7 @@ const projects = [
               </div>
             </div>
             
-            <div class="flex gap-3 pt-4 border-t border-gray-800">
+            <div class="flex gap-3 pt-4 border-t border-gray-800 mt-auto">
               <button class="flex items-center gap-2 text-cyan-400 hover:text-cyan-300 transition-colors duration-300">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
