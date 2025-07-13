@@ -33,22 +33,22 @@ const achievements = [
 
 <section id="achievements" class="py-20 bg-gray-900">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-16">
+    <div class="text-center mb-16 achievements-header">
       <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
         <span class="text-cyan-400">Achievements</span> & Recognition
       </h2>
-      <div class="w-24 h-1 bg-gradient-to-r from-cyan-500 to-green-500 mx-auto mb-6"></div>
-      <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+      <div class="w-24 h-1 bg-gradient-to-r from-cyan-500 to-green-500 mx-auto mb-6 achievements-underline"></div>
+      <p class="text-gray-400 text-lg max-w-2xl mx-auto achievements-description">
         Recognition for excellence in cybersecurity competitions and professional contributions
       </p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-8">
-      {achievements.map((achievement) => (
-        <div class="group">
+      {achievements.map((achievement, index) => (
+        <div class={`group achievement-card achievement-card-${index}`}>
           <div class="bg-black/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/10 h-full">
             <div class="flex items-start gap-4">
-              <div class={`w-12 h-12 rounded-lg bg-gradient-to-br ${achievement.color} flex items-center justify-center flex-shrink-0`}>
+              <div class={`w-12 h-12 rounded-lg bg-gradient-to-br ${achievement.color} flex items-center justify-center flex-shrink-0 achievement-icon`}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
                   <circle cx="12" cy="8" r="7"></circle>
                   <polyline points="8.21,13.89 7,23 12,20 17,23 15.79,13.88"></polyline>
@@ -57,14 +57,14 @@ const achievements = [
               
               <div class="flex-1">
                 <div class="flex items-center gap-2 mb-2">
-                  <h3 class="text-lg font-semibold text-white">{achievement.title}</h3>
-                  <span class="bg-cyan-500/20 text-cyan-400 px-2 py-1 rounded-full text-xs font-medium">
+                  <h3 class="text-lg font-semibold text-white achievement-title">{achievement.title}</h3>
+                  <span class="bg-cyan-500/20 text-cyan-400 px-2 py-1 rounded-full text-xs font-medium achievement-year">
                     {achievement.year}
                   </span>
                 </div>
                 
-                <p class="text-cyan-400 font-medium mb-3">{achievement.category}</p>
-                <p class="text-gray-400 text-sm leading-relaxed">{achievement.description}</p>
+                <p class="text-cyan-400 font-medium mb-3 achievement-category">{achievement.category}</p>
+                <p class="text-gray-400 text-sm leading-relaxed achievement-desc">{achievement.description}</p>
               </div>
             </div>
           </div>
@@ -72,16 +72,16 @@ const achievements = [
       ))}
     </div>
 
-    <div class="mt-16 text-center">
+    <div class="mt-16 text-center achievements-cta">
       <div class="bg-gradient-to-r from-cyan-500/20 to-green-500/20 rounded-2xl p-8 backdrop-blur-sm border border-cyan-500/30">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mx-auto mb-4">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mx-auto mb-4 cta-icon">
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
           <circle cx="9" cy="7" r="4"></circle>
           <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
           <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
         </svg>
-        <h3 class="text-2xl font-semibold text-white mb-2">Ready for New Challenges</h3>
-        <p class="text-gray-300 max-w-2xl mx-auto">
+        <h3 class="text-2xl font-semibold text-white mb-2 cta-title">Ready for New Challenges</h3>
+        <p class="text-gray-300 max-w-2xl mx-auto cta-description">
           Always eager to take on new security and AI challenges and contribute to innovative projects. 
           Let's build something secure and intelligent together!
         </p>
@@ -89,3 +89,223 @@ const achievements = [
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Set initial states
+    gsap.set('.achievements-header h2', { y: 50, opacity: 0 });
+    gsap.set('.achievements-underline', { scaleX: 0 });
+    gsap.set('.achievements-description', { y: 30, opacity: 0 });
+    gsap.set('.achievement-card', { y: 80, opacity: 0, scale: 0.9 });
+    gsap.set('.achievement-icon', { scale: 0, rotation: 180 });
+    gsap.set('.achievement-title', { x: -20, opacity: 0 });
+    gsap.set('.achievement-year', { scale: 0 });
+    gsap.set('.achievement-category', { x: -15, opacity: 0 });
+    gsap.set('.achievement-desc', { y: 20, opacity: 0 });
+    gsap.set('.achievements-cta', { y: 60, opacity: 0 });
+    gsap.set('.cta-icon', { scale: 0, rotation: 180 });
+    gsap.set('.cta-title', { y: 30, opacity: 0 });
+    gsap.set('.cta-description', { y: 30, opacity: 0 });
+
+    // Create timeline for achievements section
+    const achievementsTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#achievements',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        toggleActions: 'play none none reverse',
+        markers: false
+      }
+    });
+
+    // Header animations
+    achievementsTimeline
+      .to('.achievements-header h2', {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power2.out'
+      })
+      .to('.achievements-underline', {
+        scaleX: 1,
+        duration: 0.6,
+        ease: 'power2.out'
+      }, '-=0.3')
+      .to('.achievements-description', {
+        y: 0,
+        opacity: 1,
+        duration: 0.7,
+        ease: 'power2.out'
+      }, '-=0.2')
+      
+      // Achievement cards animation
+      .to('.achievement-card', {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: 'power2.out'
+      }, '-=0.3')
+      
+      // Achievement icons animation
+      .to('.achievement-icon', {
+        scale: 1,
+        rotation: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'back.out(1.7)'
+      }, '-=0.5')
+      
+      // Achievement titles animation
+      .to('.achievement-title', {
+        x: 0,
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: 'power2.out'
+      }, '-=0.4')
+      
+      // Achievement years animation
+      .to('.achievement-year', {
+        scale: 1,
+        duration: 0.4,
+        stagger: 0.1,
+        ease: 'back.out(1.7)'
+      }, '-=0.3')
+      
+      // Achievement categories animation
+      .to('.achievement-category', {
+        x: 0,
+        opacity: 1,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: 'power2.out'
+      }, '-=0.3')
+      
+      // Achievement descriptions animation
+      .to('.achievement-desc', {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out'
+      }, '-=0.2')
+      
+      // CTA section animation
+      .to('.achievements-cta', {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power2.out'
+      }, '-=0.3')
+      .to('.cta-icon', {
+        scale: 1,
+        rotation: 0,
+        duration: 0.6,
+        ease: 'back.out(1.7)'
+      }, '-=0.4')
+      .to('.cta-title', {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power2.out'
+      }, '-=0.3')
+      .to('.cta-description', {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power2.out'
+      }, '-=0.4');
+
+    // Hover animations for achievement cards
+    document.querySelectorAll('.achievement-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        gsap.to(card, {
+          scale: 1.03,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+        
+        const icon = card.querySelector('.achievement-icon');
+        if (icon) {
+          gsap.to(icon, {
+            scale: 1.1,
+            rotation: 10,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        }
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          scale: 1,
+          duration: 0.3,
+          ease: 'power2.out'
+        });
+        
+        const icon = card.querySelector('.achievement-icon');
+        if (icon) {
+          gsap.to(icon, {
+            scale: 1,
+            rotation: 0,
+            duration: 0.3,
+            ease: 'power2.out'
+          });
+        }
+      });
+    });
+
+    // Continuous pulse for CTA icon
+    gsap.to('.cta-icon', {
+      scale: 1.1,
+      duration: 2,
+      repeat: -1,
+      yoyo: true,
+      ease: 'power2.inOut'
+    });
+
+    // Parallax effect for achievement cards (reduced for mobile)
+    gsap.to('.achievement-card', {
+      y: -5,
+      scrollTrigger: {
+        trigger: '#achievements',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Performance optimizations */
+  .achievements-header,
+  .achievement-card,
+  .achievement-icon,
+  .cta-icon {
+    will-change: transform, opacity;
+  }
+  
+  .achievement-card {
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Mobile-specific optimizations */
+  @media (max-width: 768px) {
+    .achievement-card {
+      transition: transform 0.2s ease-out;
+    }
+    
+    .achievement-icon {
+      transition: transform 0.2s ease-out;
+    }
+  }
+</style>

@@ -86,12 +86,38 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    let activeSection = '';
+    // Mobile menu toggle functionality
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
     
-    // Handle scroll to detect active section
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+      });
+      
+      // Close mobile menu when clicking on mobile nav links
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+      
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function(event) {
+        const target = event.target as HTMLElement;
+        if (!mobileMenuButton.contains(target) && !mobileMenu.contains(target)) {
+          mobileMenu.classList.add('hidden');
+        }
+      });
+    }
+
+    // Enhanced scroll detection for active section highlighting
     function handleScroll() {
       const sections = ['about', 'skills', 'certifications', 'experience', 'achievements', 'contact'];
-      const scrollPosition = window.scrollY + 100;
+      const navHeight = document.getElementById('main-nav')?.getBoundingClientRect().height || 64;
+      
+      // Use a more precise detection with buffer
+      const scrollPosition = window.scrollY + navHeight;
       
       // Clear all active states first
       document.querySelectorAll('.nav-link').forEach(link => {
@@ -114,47 +140,58 @@
         }
       });
       
-      // Find current section
-      for (const section of sections) {
-        const element = document.getElementById(section);
+      // Find current section with improved detection
+      let currentSection = null;
+      let currentOffset = Number.MAX_SAFE_INTEGER;
+      
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
         if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetBottom = offsetTop + element.offsetHeight;
+          const rect = element.getBoundingClientRect();
+          const elementTop = rect.top + window.scrollY;
+          const elementBottom = elementTop + rect.height;
           
-          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-            activeSection = section;
-            
-            // Activate desktop nav
-            const desktopLink = document.querySelector(`.nav-link[data-section="${section}"]`);
-            if (desktopLink) {
-              desktopLink.classList.remove('text-gray-300');
-              desktopLink.classList.add('text-cyan-400');
-              const indicator = desktopLink.querySelector('.nav-indicator');
-              if (indicator) {
-                indicator.classList.remove('scale-x-0', 'opacity-0');
-                indicator.classList.add('scale-x-100', 'opacity-100');
-              }
+          // Check if we're in this section's range
+          if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+            const offset = Math.abs(scrollPosition - elementTop);
+            if (offset < currentOffset) {
+              currentSection = sectionId;
+              currentOffset = offset;
             }
-            
-            // Activate mobile nav
-            const mobileLink = document.querySelector(`.mobile-nav-link[data-section="${section}"]`);
-            if (mobileLink) {
-              mobileLink.classList.remove('text-gray-300');
-              mobileLink.classList.add('text-cyan-400', 'bg-cyan-500/10');
-              const indicator = mobileLink.querySelector('.mobile-nav-indicator');
-              if (indicator) {
-                indicator.classList.remove('scale-y-0', 'opacity-0');
-                indicator.classList.add('scale-y-100', 'opacity-100');
-              }
-            }
-            break;
           }
         }
       }
       
-      // Clear active section if at top
-      if (window.scrollY < 300) {
-        activeSection = '';
+      // Activate the current section
+      if (currentSection) {
+        // Activate desktop nav
+        const desktopLink = document.querySelector(`.nav-link[data-section="${currentSection}"]`);
+        if (desktopLink) {
+          desktopLink.classList.remove('text-gray-300');
+          desktopLink.classList.add('text-cyan-400');
+          const indicator = desktopLink.querySelector('.nav-indicator');
+          if (indicator) {
+            indicator.classList.remove('scale-x-0', 'opacity-0');
+            indicator.classList.add('scale-x-100', 'opacity-100');
+          }
+        }
+        
+        // Activate mobile nav
+        const mobileLink = document.querySelector(`.mobile-nav-link[data-section="${currentSection}"]`);
+        if (mobileLink) {
+          mobileLink.classList.remove('text-gray-300');
+          mobileLink.classList.add('text-cyan-400', 'bg-cyan-500/10');
+          const indicator = mobileLink.querySelector('.mobile-nav-indicator');
+          if (indicator) {
+            indicator.classList.remove('scale-y-0', 'opacity-0');
+            indicator.classList.add('scale-y-100', 'opacity-100');
+          }
+        }
+      }
+      
+      // Special case: if at the very top, don't highlight anything
+      if (window.scrollY < 100) {
+        // All sections already cleared above
       }
     }
     

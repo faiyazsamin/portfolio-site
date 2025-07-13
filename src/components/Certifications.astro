@@ -67,3 +67,179 @@ const certifications = [
     </div>
   </div>
 </section>
+
+<style>
+  /* Remove any existing CSS animations */
+  * {
+    animation: none !important;
+  }
+  
+  /* Ensure smooth performance */
+  .cert-header,
+  .cert-grid,
+  .cert-card {
+    will-change: transform, opacity;
+  }
+  
+  /* Optimize for better performance */
+  .cert-logo,
+  .cert-content {
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+</style>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Set initial states for Certifications section
+    gsap.set('#certifications h2', { opacity: 0, y: 30 });
+    gsap.set('#certifications .w-24', { opacity: 0, scaleX: 0 });
+    gsap.set('#certifications p', { opacity: 0, y: 20 });
+    gsap.set('#certifications .group', { opacity: 0, y: 50, rotationY: 15 });
+    gsap.set('#certifications .w-16', { opacity: 0, scale: 0.5, rotation: 180 });
+    gsap.set('#certifications img', { opacity: 0, scale: 0.3, rotation: -180 });
+    gsap.set('#certifications .text-xl.font-semibold', { opacity: 0, y: 20 });
+    gsap.set('#certifications .text-cyan-400.font-medium', { opacity: 0, x: -20 });
+    gsap.set('#certifications .text-gray-400.text-sm', { opacity: 0, y: 15 });
+
+    // Create Certifications section timeline
+    const certsTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#certifications',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        toggleActions: 'play none none reverse'
+      }
+    });
+
+    certsTl
+      // Header animation
+      .to('#certifications h2', {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: 'power2.out'
+      })
+      .to('#certifications .w-24', {
+        opacity: 1,
+        scaleX: 1,
+        duration: 0.6,
+        ease: 'power2.out'
+      }, '-=0.3')
+      .to('#certifications p', {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out'
+      }, '-=0.2')
+      
+      // Certification cards stagger animation
+      .to('#certifications .group', {
+        opacity: 1,
+        y: 0,
+        rotationY: 0,
+        duration: 0.8,
+        stagger: {
+          amount: 0.6,
+          from: "start"
+        },
+        ease: 'power2.out'
+      }, '-=0.3');
+
+    // Individual certification card animations
+    document.querySelectorAll('#certifications .group').forEach((card) => {
+      const cardTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        }
+      });
+
+      const hasLogo = card.querySelector('img');
+      const logoElement = hasLogo ? card.querySelector('img') : card.querySelector('.w-16');
+
+      cardTl
+        .to(logoElement, {
+          opacity: 1,
+          scale: 1,
+          rotation: 0,
+          duration: 0.6,
+          ease: 'back.out(1.7)'
+        }, 0.2)
+        .to(card.querySelector('.text-xl.font-semibold'), {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: 'power2.out'
+        }, '-=0.3')
+        .to(card.querySelector('.text-cyan-400.font-medium'), {
+          opacity: 1,
+          x: 0,
+          duration: 0.4,
+          ease: 'power2.out'
+        }, '-=0.2')
+        .to(card.querySelector('.text-gray-400.text-sm'), {
+          opacity: 1,
+          y: 0,
+          duration: 0.4,
+          ease: 'power2.out'
+        }, '-=0.2');
+    });
+
+    // Hover animations for certification cards
+    document.querySelectorAll('#certifications .group > div').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        gsap.to(card, {
+          scale: 1.05,
+          rotationY: 2,
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+        
+        const logoElement = card.querySelector('img') || card.querySelector('.w-16');
+        gsap.to(logoElement, {
+          scale: 1.1,
+          rotation: 5,
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+
+        // Add glow effect
+        gsap.to(card, {
+          boxShadow: '0 20px 40px rgba(6, 182, 212, 0.3)',
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          scale: 1,
+          rotationY: 0,
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+        
+        const logoElement = card.querySelector('img') || card.querySelector('.w-16');
+        gsap.to(logoElement, {
+          scale: 1,
+          rotation: 0,
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+
+        gsap.to(card, {
+          boxShadow: '0 0 0 rgba(6, 182, 212, 0)',
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+      });
+    });
+  });
+</script>

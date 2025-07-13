@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Scroll offset for fixed navigation */
+html {
+  /* scroll-behavior: smooth; -- Disabled in favor of JavaScript implementation */
+  scroll-padding-top: 72px; /* Nav height (64px) + extra padding (8px) */
+}
+
+/* Section scroll offset for anchor links */
+section[id] {
+  scroll-margin-top: 72px; /* Ensures proper spacing when navigating to sections */
+}
+
 /* Custom animations */
 @keyframes fade-in {
   from {
@@ -82,11 +93,6 @@
     linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px);
   background-size: 50px 50px;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
 }
 
 /* Custom scrollbar */

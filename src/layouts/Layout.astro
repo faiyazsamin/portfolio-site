@@ -70,22 +70,8 @@ const { title, description = "QA Specialist, Security Tester & Automation Builde
     </div>
     
     <script>
-      // Smooth scrolling for navigation links
+      // Basic mobile menu toggle (scroll handling moved to GSAP section)
       document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const href = (e.target as HTMLAnchorElement).getAttribute('href');
-            const target = href ? document.querySelector(href) : null;
-            if (target) {
-              target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-              });
-            }
-          });
-        });
-
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -157,12 +143,50 @@ const { title, description = "QA Specialist, Security Tester & Automation Builde
     </style>
 
     <script>
-      // Site Loader Management
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+      import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+      
+      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+      // Site Loader Management with GSAP
       function initializeLoader() {
         const loader = document.getElementById('site-loader');
         const mainContent = document.getElementById('main-content');
         const progressBar = document.getElementById('progress-bar');
-        
+        const loaderLogo = document.querySelector('.loader-logo');
+        const loaderAnimation = document.querySelector('.loader-animation');
+        const loaderProgress = document.querySelector('.loader-progress');
+
+        // Set initial states for loader elements
+        gsap.set(loaderLogo, { opacity: 0, y: 30, scale: 0.8 });
+        gsap.set(loaderAnimation, { opacity: 0, y: 20 });
+        gsap.set(loaderProgress, { opacity: 0, y: 15 });
+
+        // Animate loader entrance
+        const loaderTl = gsap.timeline();
+        loaderTl
+          .to(loaderLogo, {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: 'power2.out'
+          })
+          .to(loaderAnimation, {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: 'power2.out'
+          }, '-=0.4')
+          .to(loaderProgress, {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: 'power2.out'
+          }, '-=0.3');
+
+        // Progress bar animation
         let progress = 0;
         const progressInterval = setInterval(() => {
           progress += Math.random() * 15;
@@ -170,51 +194,229 @@ const { title, description = "QA Specialist, Security Tester & Automation Builde
             progress = 90;
           }
           if (progressBar) {
-            progressBar.style.width = progress + '%';
+            gsap.to(progressBar, {
+              width: progress + '%',
+              duration: 0.3,
+              ease: 'power2.out'
+            });
           }
         }, 100);
 
-        // Wait for all resources to load
+        // Hide loader function
         function hideLoader() {
           if (progressBar) {
-            progressBar.style.width = '100%';
+            gsap.to(progressBar, {
+              width: '100%',
+              duration: 0.3,
+              ease: 'power2.out'
+            });
           }
           
           clearInterval(progressInterval);
           
           setTimeout(() => {
-            if (loader) {
-              loader.style.transition = 'opacity 0.5s ease-out';
-              loader.style.opacity = '0';
-              setTimeout(() => {
-                loader.style.display = 'none';
-              }, 500);
-            }
+            // Animate loader exit
+            const exitTl = gsap.timeline();
+            exitTl
+              .to(loaderProgress, {
+                opacity: 0,
+                y: -15,
+                duration: 0.3,
+                ease: 'power2.in'
+              })
+              .to(loaderAnimation, {
+                opacity: 0,
+                y: -20,
+                duration: 0.4,
+                ease: 'power2.in'
+              }, '-=0.2')
+              .to(loaderLogo, {
+                opacity: 0,
+                y: -30,
+                scale: 0.8,
+                duration: 0.5,
+                ease: 'power2.in'
+              }, '-=0.3')
+              .to(loader, {
+                opacity: 0,
+                duration: 0.5,
+                ease: 'power2.in',
+                onComplete: () => {
+                  if (loader) {
+                    loader.style.display = 'none';
+                  }
+                }
+              }, '-=0.2');
             
+            // Show main content
             if (mainContent) {
               mainContent.style.visibility = 'visible';
-              mainContent.style.opacity = '1';
-              mainContent.style.transition = 'opacity 0.5s ease-in';
+              gsap.to(mainContent, {
+                opacity: 1,
+                duration: 0.8,
+                ease: 'power2.out'
+              });
             }
             
             // Restore body scroll functionality
             document.body.classList.add('loaded');
             document.body.style.removeProperty('overflow');
-          }, 200);
+          }, 300);
         }
 
         // Hide loader when page is fully loaded
         if (document.readyState === 'complete') {
-          setTimeout(hideLoader, 1000);
+          setTimeout(hideLoader, 1500);
         } else {
           window.addEventListener('load', () => {
-            setTimeout(hideLoader, 1000);
+            setTimeout(hideLoader, 1500);
           });
         }
       }
 
-      // Initialize loader immediately
-      initializeLoader();
+      // Smooth scrolling with GSAP
+      document.addEventListener('DOMContentLoaded', function() {
+        // Initialize loader
+        initializeLoader();
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const href = (e.target as HTMLAnchorElement).getAttribute('href');
+            const target = href ? document.querySelector(href) : null;
+            if (target) {
+              // Calculate proper offset based on nav height
+              const nav = document.getElementById('main-nav');
+              const navHeight = nav ? nav.offsetHeight : 64;
+              const offset = navHeight; // Add some padding for better visual separation
+              
+              gsap.to(window, {
+                duration: 1.2,
+                scrollTo: {
+                  y: target,
+                  offsetY: offset
+                },
+                ease: 'power2.out'
+              });
+            }
+          });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuButton && mobileMenu) {
+          mobileMenuButton.addEventListener('click', function() {
+            if (mobileMenu.classList.contains('hidden')) {
+              mobileMenu.classList.remove('hidden');
+              gsap.fromTo(mobileMenu, 
+                { opacity: 0, y: -20 },
+                { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
+              );
+            } else {
+              gsap.to(mobileMenu, {
+                opacity: 0,
+                y: -20,
+                duration: 0.3,
+                ease: 'power2.in',
+                onComplete: () => {
+                  mobileMenu.classList.add('hidden');
+                }
+              });
+            }
+          });
+        }
+
+        // Floating hire button with enhanced GSAP animations
+        const floatingButton = document.getElementById('floating-hire-button');
+        const hireModal = document.getElementById('hire-modal');
+        const closeModal = document.getElementById('close-modal');
+        
+        if (floatingButton && hireModal && closeModal) {
+          // Show/hide floating button on scroll
+          ScrollTrigger.create({
+            start: 300,
+            end: 99999,
+            onUpdate: (self) => {
+              if (self.progress > 0) {
+                gsap.to(floatingButton, {
+                  opacity: 1,
+                  scale: 1,
+                  duration: 0.3,
+                  ease: 'power2.out'
+                });
+                floatingButton.classList.remove('hidden');
+              } else {
+                gsap.to(floatingButton, {
+                  opacity: 0,
+                  scale: 0.8,
+                  duration: 0.3,
+                  ease: 'power2.in',
+                  onComplete: () => {
+                    floatingButton.classList.add('hidden');
+                  }
+                });
+              }
+            }
+          });
+
+          // Show modal with animation
+          floatingButton.addEventListener('click', function() {
+            hireModal.classList.remove('hidden');
+            gsap.fromTo(hireModal,
+              { opacity: 0 },
+              { opacity: 1, duration: 0.3, ease: 'power2.out' }
+            );
+            gsap.fromTo(hireModal.querySelector('div'),
+              { opacity: 0, scale: 0.8, y: 50 },
+              { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: 'back.out(1.7)' }
+            );
+          });
+
+          // Close modal with animation
+          function closeModalWithAnimation() {
+            if (!hireModal) return;
+            
+            const modalContent = hireModal.querySelector('div');
+            if (modalContent) {
+              gsap.to(modalContent, {
+                opacity: 0,
+                scale: 0.8,
+                y: 50,
+                duration: 0.3,
+                ease: 'power2.in'
+              });
+            }
+            gsap.to(hireModal, {
+              opacity: 0,
+              duration: 0.3,
+              ease: 'power2.in',
+              onComplete: () => {
+                if (hireModal) {
+                  hireModal.classList.add('hidden');
+                }
+              }
+            });
+          }
+
+          closeModal.addEventListener('click', closeModalWithAnimation);
+          
+          hireModal.addEventListener('click', function(e) {
+            if (e.target === hireModal) {
+              closeModalWithAnimation();
+            }
+          });
+
+          // Close modal on Escape key
+          document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !hireModal.classList.contains('hidden')) {
+              closeModalWithAnimation();
+            }
+          });
+        }
+      });
     </script>
   </body>
 </html>
