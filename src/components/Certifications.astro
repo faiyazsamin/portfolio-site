@@ -101,7 +101,6 @@ const certifications = [
     gsap.set('#certifications .w-24', { opacity: 0, scaleX: 0 });
     gsap.set('#certifications p', { opacity: 0, y: 20 });
     gsap.set('#certifications .group', { opacity: 0, y: 50, rotationY: 15 });
-    gsap.set('#certifications .w-16', { opacity: 0, scale: 0.5, rotation: 180 });
     gsap.set('#certifications img', { opacity: 0, scale: 0.3, rotation: -180 });
     gsap.set('#certifications .text-xl.font-semibold', { opacity: 0, y: 20 });
     gsap.set('#certifications .text-cyan-400.font-medium', { opacity: 0, x: -20 });
@@ -205,7 +204,6 @@ const certifications = [
         const logoElement = card.querySelector('img') || card.querySelector('.w-16');
         gsap.to(logoElement, {
           scale: 1.1,
-          rotation: 5,
           duration: 0.4,
           ease: 'power2.out'
         });
