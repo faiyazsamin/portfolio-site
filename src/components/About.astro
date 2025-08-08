@@ -51,7 +51,7 @@
               </div>
               <div class="flex items-start gap-3">
                 <div class="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
-                <p class="text-gray-300 text-sm">Available for immediate start (remote/hybrid)</p>
+                <p class="text-gray-300 text-sm">Available for immediate start (remote)</p>
               </div>
             </div>
           </div>
@@ -138,7 +138,7 @@
                   <line x1="8" y1="21" x2="16" y2="21"></line>
                   <line x1="12" y1="17" x2="12" y2="21"></line>
                 </svg>
-                <span>Preferred: Remote, Hybrid, Global teams</span>
+                <span>Preferred: Remote, Global teams</span>
               </div>
             </div>
           </div>
@@ -149,6 +149,11 @@
 </section>
 
 <style>
+  /* Fix horizontal overflow issues */
+
+  /* Ensure all content respects container boundaries */
+
+  
   /* Remove any existing CSS animations */
   * {
     animation: none !important;
@@ -185,7 +190,7 @@
     gsap.set('#about .bg-gradient-to-br', { opacity: 0, y: 30, scale: 0.95 });
     gsap.set('#about .flex.items-start.gap-3', { opacity: 0, x: -20 });
     gsap.set('#about .flex.flex-wrap.gap-4 > a', { opacity: 0, y: 20, scale: 0.9 });
-    gsap.set('#about .relative > div', { opacity: 0, x: 50, rotationY: 15 });
+    gsap.set('#about .relative > div', { opacity: 0, y: 50 }); // Changed from x: 50, rotationY: 15 to y: 50
     gsap.set('#about .w-32', { opacity: 0, scale: 0.8, rotation: -10 });
     gsap.set('#about .text-xl.font-semibold', { opacity: 0, y: 20 });
     gsap.set('#about .bg-green-500\\/20', { opacity: 0, y: 20 });
@@ -258,8 +263,7 @@
       // Right content
       .to('#about .relative > div', {
         opacity: 1,
-        x: 0,
-        rotationY: 0,
+        y: 0, // Changed from x: 0, rotationY: 0 to y: 0
         duration: 0.8,
         ease: 'power2.out'
       }, '-=0.6')
